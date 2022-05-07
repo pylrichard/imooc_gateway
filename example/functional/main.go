@@ -15,15 +15,14 @@ func (f HandlerFunc) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	hf := HandlerFunc(HelloHandler)
-
 	resp := httptest.NewRecorder()
 	req := httptest.NewRequest("GET", "/", bytes.NewBuffer([]byte("test")))
 
+	hf := HandlerFunc(HelloHandler)
 	hf.ServeHTTP(resp, req)
 
-	bts, _ := ioutil.ReadAll(resp.Body)
-	fmt.Println(string(bts))
+	b, _ := ioutil.ReadAll(resp.Body)
+	fmt.Println(string(b))
 }
 
 func HelloHandler(res http.ResponseWriter, req *http.Request) {
